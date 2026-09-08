@@ -1,0 +1,96 @@
+#Suma de dígitos
+def digitsSum(inputInt: int) -> int:
+    num = abs(inputInt) 
+    suma = 0
+    while num > 0:
+        digito = num % 10
+        suma += digito
+        num //= 10
+    return suma
+
+#Palindromos
+def isPalindrome(inputStr: str) -> bool:
+    texto = inputStr.lower().replace(" ", "")
+    n = len(texto)
+    for i in range(n // 2):
+        if texto[i] != texto[n - 1 - i]:
+            return False
+    return True
+
+#Ordenamiento
+def integerSort(inputArray: list) -> list:
+    resultado = inputArray.copy()  
+    n = len(resultado)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if resultado[j] > resultado[j + 1]:
+                resultado[j], resultado[j + 1] = resultado[j + 1], resultado[j]
+    return resultado
+
+
+def opcion_suma_digitos():
+    print("\n Suma de dígitos")
+    while True:
+        entrada = input("Ingresa un número entero. Para regresar escribe 'inicio': ").strip()
+        if entrada.lower() == "inicio":
+            break
+        try:
+            num = int(entrada)
+            resultado = digitsSum(num)
+            print(f"digitsSum({num}) = {resultado}")
+        except ValueError:
+            print("Ingresa un número entero")
+
+
+def opcion_palindromo():
+    print("\n Palíndromo: Falso o Verdadero")
+    while True:
+        entrada = input("Ingresa un texto. Para regresar escribe 'inicio': ").strip()
+        if entrada.lower() == "inicio":
+            break
+        if entrada == "":
+            print("Debes ingresar una palabra")
+            continue
+        resultado = isPalindrome(entrada)
+        print(f'isPalindrome("{entrada}") = {resultado}')
+
+
+def opcion_ordenamiento():
+    print("\n Ordenamiento")
+    while True:
+        entrada = input("Ingresa números enteros separados por comas ej: 5,-2,10,0 o 'inicio' para regresar): ").strip()
+        if entrada.lower() == "inicio":
+            break
+        try:
+            lista = [int(x.strip()) for x in entrada.split(",")]
+            resultado = integerSort(lista)
+            print(f"integerSort({lista}) = {resultado}")
+        except ValueError:
+            print("Ingresa solo números enteros separados por comas.")
+
+def mostrar_inicio():
+    print("\n Menú de desafíos")
+    print("1. Suma de dígitos")
+    print("2. Palíndromo")
+    print("3. Ordenamiento")
+    print("4. Salir")
+
+def main():
+    while True:
+        mostrar_inicio()
+        opcion = input("Selecciona una opción (1-4): ").strip()
+
+        if opcion == "1":
+            opcion_suma_digitos()
+        elif opcion == "2":
+            opcion_palindromo()
+        elif opcion == "3":
+            opcion_ordenamiento()
+        elif opcion == "4":
+            print("Salida del programa")
+            break
+        else:
+            print("Por favor, selecciona una opción del menú")
+
+if __name__ == "__main__":
+    main()
